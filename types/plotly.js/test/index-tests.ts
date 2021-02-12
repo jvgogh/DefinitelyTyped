@@ -285,6 +285,87 @@ const graphDiv = '#test';
     Plotly.newPlot('myDiv', data, layout, config);
 })();
 (() => {
+  // Test choropleth related APIs
+  const data: Array<Partial<PlotData>> = [
+      {
+        colorbar: {
+          title: 'Test',
+        },
+        locationmode: 'ISO-3',
+        locations: ['USA', 'NLD'],
+        reversescale: true,
+        type: 'choropleth',
+        z: [1, 2]
+      },
+  ];
+  const layout: Partial<Layout> = {
+    showlegend: true,
+    title: 'World Map',
+    geo: {
+      projection: { type: 'Mercator'},
+      showcoastlines: true,
+      showframe: true,
+    },
+  };
+  Plotly.newPlot('myDiv', data, layout);
+})();
+(() => {
+  // Test slider APIs
+  const data: Array<Partial<PlotData>> = [
+      {
+        colorbar: {
+          title: 'Test',
+        },
+        locationmode: 'ISO-3',
+        locations: ['USA', 'NLD'],
+        reversescale: true,
+        type: 'choropleth',
+        z: [1, 2]
+      },
+  ];
+  const layout: Partial<Layout> = {
+    showlegend: true,
+    title: 'World Map',
+    geo: {
+      projection: { type: 'Mercator'},
+      showcoastlines: true,
+      showframe: true,
+    },
+    sliders: [{
+      pad: {t: 30},
+      y: 1.3,
+      x: 0.2,
+      len: 0.8,
+      currentvalue: {
+        visible: true,
+        prefix: 'Date:',
+        xanchor: 'right',
+        font: {size: 20, color: '#666'}
+      },
+      steps: [{
+        method: 'animate',
+        label: '2019-02-04',
+        args: [
+          [
+            '2019-02-04'
+          ],
+          {
+            mode: 'immediate',
+            transition: {
+              duration: 300,
+            },
+            frame: {
+              duration: 300,
+              redraw: false
+            }
+          }
+        ]
+      }]
+    }]
+  };
+  Plotly.newPlot('myDiv', data, layout);
+})();
+(() => {
     // should create a boxplot with boxmode 'group'
     const y: number[] = [];
     const x: string[] = [];
